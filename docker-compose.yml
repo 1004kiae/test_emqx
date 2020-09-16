@@ -1,0 +1,40 @@
+version: "3"
+services:
+  test_emqx:
+    container_name: test_emqx
+    hostname: "test_emqx"
+    image: emqx/emqx:latest
+    ports:
+      - "18083:18083" # EMQ X Dashboard Interface port
+      - "1883:1883" # mqtt tcp port
+    environment:
+      EMQX_NAME: emqx
+    tty: true
+    stdin_open: true
+    networks:
+      - emqx_net
+
+  test_pub:
+    container_name: test_pub
+    hostname: "test_pub"
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-pub
+    tty: true
+    stdin_open: true
+    networks:
+      - emqx_net
+
+  test_sub:
+    container_name: test_sub
+    hostname: "test_sub"
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-sub
+    tty: true
+    stdin_open: true
+    networks:
+      - emqx_net
+
+networks:
+  emqx_net:

@@ -1,0 +1,19 @@
+# Build binary
+FROM golang:1.14.6 AS builder
+WORKDIR /build
+
+ENV CGO_ENABLED=0
+
+COPY go.mod ./
+RUN go mod download
+
+COPY . ./
+RUN go build -o pub ./cmd/pub/main.go
+
+# Run on scratch
+FROM alpine:latest
+WORKDIR /bin
+
+COPY --from=builder /build/pub /bin/
+
+ENTRYPOINT ["/bin/pub"]
