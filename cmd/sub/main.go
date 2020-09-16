@@ -26,7 +26,12 @@ func main() {
 
 	hostname, _ := os.Hostname()
 
-	server := flag.String("server", "tcp://test_emqx:1883", "The full url of the MQTT server to connect to ex: tcp://127.0.0.1:1883")
+	// local
+	server := flag.String("server", "tcp://127.0.0.1:1883", "The full url of the MQTT server to connect to ex: tcp://127.0.0.1:1883")
+
+	// docker container
+	//server := flag.String("server", "tcp://test_emqx:1883", "The full url of the MQTT server to connect to ex: tcp://127.0.0.1:1883")
+
 	topic := flag.String("topic", "#", "Topic to subscribe to")
 
 	testTopic := "topic"

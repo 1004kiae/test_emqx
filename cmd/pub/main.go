@@ -20,7 +20,12 @@ func main() {
 	stdin := bufio.NewReader(os.Stdin)
 	hostname, _ := os.Hostname()
 
-	server := flag.String("server", "tcp://test_emqx:1883", "The full URL of the MQTT server to connect to")
+	// local
+	server := flag.String("server", "tcp://127.0.0.1:1883", "The full URL of the MQTT server to connect to")
+
+	// docker container
+	//server := flag.String("server", "tcp://test_emqx:1883", "The full URL of the MQTT server to connect to")
+
 	topic := flag.String("topic", hostname, "Topic to publish the messages on")
 
 	testTopic := "topic"
